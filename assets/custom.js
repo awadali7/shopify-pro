@@ -543,16 +543,40 @@ class EventHandlers {
 
         emailForm.addEventListener("submit", async (e) => {
             e.preventDefault();
-            const email = document.getElementById("emailInput").value;
 
-            // Save email to Shopify
-            await createOrUpdateCustomer(email);
+            const emailInput = document.querySelector("#emailInput");
+            const email = emailInput.value.trim();
 
-            // Trigger wheel spin
+            if (!email) {
+                alert("Please enter a valid email.");
+                return;
+            }
+
+            try {
+                const response = await fetch("/save-email", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ email }),
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    alert("Email saved successfully!");
+                } else {
+                    console.error("Error:", result.error);
+                    alert("Failed to save email.");
+                }
+            } catch (error) {
+                console.error("Network error:", error);
+                alert("An error occurred. Please try again later.");
+            }
+
             if (email && state.wheelSpinner) {
                 state.wheelSpinner();
             }
         });
+        // Trigger wheel spin
 
         giftBox.addEventListener("click", () => {
             promoModal.style.display = "flex";
