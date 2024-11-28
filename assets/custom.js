@@ -562,7 +562,7 @@ class EventHandlers {
                 const result = await response.json();
 
                 if (response.ok) {
-                    alert("Email saved successfully!");
+                    alert("Email saved and subscribed successfully!");
                 } else {
                     console.error("Error:", result.error);
                     alert("Failed to save email.");
