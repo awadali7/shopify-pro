@@ -17,7 +17,6 @@ const CONSTANTS = {
     HOURS_BETWEEN_SPINS: 24,
 };
 
-// State management
 const state = {
     wheelSpinner: null,
     isSpinning: false,
@@ -26,7 +25,6 @@ const state = {
     discountCodes: [],
 };
 
-// Utility functions
 const utils = {
     truncateText: (text, maxLength) =>
         text.length > maxLength
@@ -38,10 +36,9 @@ const utils = {
 
 const shopifyConfig = {
     shopName: "https://pro-backend-chi.vercel.app",
-    apiVersion: "2024-10", // Current API version
+    apiVersion: "2024-10",
 };
 
-// API functions
 class ProductAPI {
     static async getLuckyDrawProducts() {
         try {
@@ -56,7 +53,6 @@ class ProductAPI {
             const data = await response.json();
             console.log(data.data, "data");
 
-            // Transform the data to match the expected format
             state.luckyDrawProducts = data.data.map((product) => ({
                 title: product.title,
                 id: product.id,
@@ -80,21 +76,21 @@ class ProductAPI {
     }
 }
 
-// Wheel drawing logic
-class LuckyWheel {
+class EnhancedLuckyWheel {
     constructor(canvasId) {
         this.canvas = document.getElementById(canvasId);
         this.ctx = this.canvas.getContext("2d");
         this.prizes = this.initializePrizes();
         this.resizeHandler = this.handleResize.bind(this);
         this.loadedImages = new Map();
+        this.offscreenCanvas = document.createElement("canvas");
+        this.offscreenCtx = this.offscreenCanvas.getContext("2d");
         this.initialize();
     }
 
     initializePrizes() {
         if (state.luckyDrawProducts && state.luckyDrawProducts.length > 0) {
             return state.luckyDrawProducts.map((product, index) => {
-                // Normalize image URL extraction
                 const imageUrl = product.image || product?.image?.src || "";
 
                 return {
@@ -109,7 +105,7 @@ class LuckyWheel {
                 };
             });
         }
-        return []; // Return empty array if no products
+        return [];
     }
 
     async preloadImages() {
@@ -181,18 +177,20 @@ class LuckyWheel {
                 : CONSTANTS.CANVAS_SIZES.DESKTOP;
         this.canvas.width = size;
         this.canvas.height = size;
+        this.offscreenCanvas.width = size;
+        this.offscreenCanvas.height = size;
     }
 
     drawWheel() {
+        const offscreenCtx = this.offscreenCtx;
         const centerX = this.canvas.width / 2;
         const centerY = this.canvas.height / 2;
         const radius = Math.min(centerX, centerY) - 10;
         const totalSegments = this.prizes.length;
         const arcAngle = (2 * Math.PI) / totalSegments;
 
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        offscreenCtx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-        // Set default font styles
         const fontSize =
             window.innerWidth <= CONSTANTS.MOBILE_BREAKPOINT
                 ? CONSTANTS.FONT_SIZES.MOBILE
@@ -207,97 +205,93 @@ class LuckyWheel {
             const startAngle = index * arcAngle;
             const endAngle = startAngle + arcAngle;
 
-            // Draw segment
-            this.ctx.beginPath();
-            this.ctx.moveTo(centerX, centerY);
-            this.ctx.arc(centerX, centerY, radius, startAngle, endAngle);
-            this.ctx.fillStyle = prize.bgColor;
-            this.ctx.fill();
+            offscreenCtx.beginPath();
+            offscreenCtx.moveTo(centerX, centerY);
+            offscreenCtx.arc(centerX, centerY, radius, startAngle, endAngle);
+            offscreenCtx.fillStyle = prize.bgColor;
+            offscreenCtx.fill();
 
-            // Prepare for text placement
-            this.ctx.save();
+            offscreenCtx.save();
 
-            // Truncate text if it's too long
             const truncatedTitle = utils.truncateText(
                 prize.label,
                 maxTextLength
             );
 
-            // Set text properties
-            this.ctx.font = `bold ${fontSize}px Arial`;
-            this.ctx.fillStyle = "black";
+            offscreenCtx.font = `bold ${fontSize}px Arial`;
+            offscreenCtx.fillStyle = "black";
 
-            // Calculate mid-angle of the segment
             const midAngle = startAngle + arcAngle / 2;
-
-            // Calculate text position
             const textRadius = radius * 0.8;
             const textX = centerX + textRadius * Math.cos(midAngle);
             const textY = centerY + textRadius * Math.sin(midAngle);
 
-            // Measure text width for better positioning
-            const textWidth = this.ctx.measureText(truncatedTitle).width;
+            const textWidth = offscreenCtx.measureText(truncatedTitle).width;
 
-            // Adjust text rotation and alignment
-            this.ctx.save();
-            this.ctx.translate(textX, textY);
-            this.ctx.rotate(midAngle + Math.PI / 2);
+            offscreenCtx.save();
+            offscreenCtx.translate(textX, textY);
+            offscreenCtx.rotate(midAngle + Math.PI / 2);
 
-            // Determine if text should be flipped
             const shouldFlip =
                 midAngle > Math.PI / 2 && midAngle < (3 * Math.PI) / 2;
             if (shouldFlip) {
-                this.ctx.rotate(Math.PI);
+                offscreenCtx.rotate(Math.PI);
             }
 
-            // Draw text centered
-            this.ctx.textAlign = "center";
-            this.ctx.textBaseline = "middle";
-            this.ctx.fillText(truncatedTitle, 0, 0);
+            offscreenCtx.textAlign = "center";
+            offscreenCtx.textBaseline = "middle";
+            offscreenCtx.fillText(truncatedTitle, 0, 0);
 
-            // Restore canvas state
-            this.ctx.restore();
-            this.ctx.restore();
+            offscreenCtx.restore();
+            offscreenCtx.restore();
 
-            // Image drawing logic
-            this.ctx.save();
-            this.ctx.translate(centerX, centerY);
-            this.ctx.rotate(startAngle + arcAngle / 2);
+            offscreenCtx.save();
+            offscreenCtx.translate(centerX, centerY);
+            offscreenCtx.rotate(startAngle + arcAngle / 2);
 
             const imageSize = radius * 0.4;
             const imageDistance = radius * 0.5;
 
             const img = this.loadedImages.get(prize.id);
             if (img) {
-                this.ctx.save();
-                this.ctx.beginPath();
-                this.ctx.arc(imageDistance, 0, imageSize / 2, 0, Math.PI * 2);
-                this.ctx.clip();
-                this.ctx.drawImage(
+                offscreenCtx.save();
+                offscreenCtx.beginPath();
+                offscreenCtx.arc(
+                    imageDistance,
+                    0,
+                    imageSize / 2,
+                    0,
+                    Math.PI * 2
+                );
+                offscreenCtx.clip();
+                offscreenCtx.drawImage(
                     img,
                     imageDistance - imageSize / 2,
                     -imageSize / 2,
                     imageSize,
                     imageSize
                 );
-                this.ctx.restore();
+                offscreenCtx.restore();
             }
 
-            this.ctx.restore();
+            offscreenCtx.restore();
         });
 
         this.drawIndicator(centerX, centerY - radius);
+
+        // Transfer offscreen canvas to main canvas
+        this.ctx.drawImage(this.offscreenCanvas, 0, 0);
     }
 
     drawIndicator(x, y) {
-        // More subtle indicator
-        this.ctx.beginPath();
-        this.ctx.moveTo(x, y);
-        this.ctx.lineTo(x - 8, y - 12);
-        this.ctx.lineTo(x + 8, y - 12);
-        this.ctx.closePath();
-        this.ctx.fillStyle = "#FF4500"; // Vibrant red
-        this.ctx.fill();
+        const ctx = this.offscreenCtx;
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        ctx.lineTo(x - 8, y - 12);
+        ctx.lineTo(x + 8, y - 12);
+        ctx.closePath();
+        ctx.fillStyle = "#FF4500";
+        ctx.fill();
     }
 
     async spin() {
@@ -308,21 +302,15 @@ class LuckyWheel {
         spinButton.disabled = true;
         spinButton.style.opacity = "0.5";
 
-        // Select a prize with weighted probability
         const selectedPrizeIndex = this.selectPrize();
         const segmentAngle = 360 / this.prizes.length;
-
-        // Randomize the exact position within the selected segment
         const segmentOffset = Math.random() * segmentAngle;
         const prizeRotation = selectedPrizeIndex * segmentAngle + segmentOffset;
-
-        // Increase spin multiplier for more rotations
         const totalRotation = CONSTANTS.SPIN_MULTIPLIER * 540 + prizeRotation;
 
         await this.animateWheel(totalRotation);
         state.isSpinning = false;
 
-        // Get the winning prize index after rotation
         const winningPrizeIndex = this.getWinningPrizeIndex();
         console.log("Selected Prize Index:", selectedPrizeIndex);
         console.log("Winning Prize Index:", winningPrizeIndex);
@@ -330,24 +318,15 @@ class LuckyWheel {
 
         this.showPrizeNotification(this.prizes[winningPrizeIndex]);
 
-        // Re-enable spin button
         spinButton.disabled = false;
         spinButton.style.opacity = "1";
     }
 
     getWinningPrizeIndex() {
         const segmentAngle = 360 / this.prizes.length;
-
-        // Normalize the current rotation to be between 0 and 360 degrees
         const normalizedRotation = ((state.currentRotation % 360) + 360) % 360;
-
-        // Adjust the rotation to account for the pointer's position
         const adjustedRotation = (360 - normalizedRotation + 270) % 360;
-
-        // Calculate the index based on the adjusted rotation
         const index = Math.floor(adjustedRotation / segmentAngle);
-
-        // Ensure the index is within the prizes array bounds
         return index % this.prizes.length;
     }
 
@@ -362,24 +341,22 @@ class LuckyWheel {
     }
 
     async animateWheel(targetRotation) {
-        const startRotation = state.currentRotation;
-        const startTime = performance.now();
-
-        // Simplified easing function
-        const easeInOutCubic = (t) =>
-            t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-
-        // Use requestAnimationFrame more efficiently
         return new Promise((resolve) => {
-            const frameCallback = (currentTime) => {
+            const startRotation = state.currentRotation;
+            const startTime = performance.now();
+
+            const customEasing = (t) => {
+                return 1 - Math.pow(1 - t, 4);
+            };
+
+            const animateFrame = (currentTime) => {
                 const elapsed = currentTime - startTime;
                 const duration = CONSTANTS.SPIN_DURATION * 1.5;
                 const progress = Math.min(elapsed / duration, 1);
 
                 state.currentRotation =
-                    startRotation + targetRotation * easeInOutCubic(progress);
+                    startRotation + targetRotation * customEasing(progress);
 
-                // Optimize canvas drawing
                 this.ctx.setTransform(1, 0, 0, 1, 0, 0);
                 this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
@@ -398,15 +375,16 @@ class LuckyWheel {
                 this.ctx.restore();
 
                 if (progress < 1) {
-                    requestAnimationFrame(frameCallback);
+                    requestAnimationFrame(animateFrame);
                 } else {
                     resolve();
                 }
             };
 
-            requestAnimationFrame(frameCallback);
+            requestAnimationFrame(animateFrame);
         });
     }
+
     showPrizeNotification(prize) {
         console.log(prize, "prize =====>");
 
