@@ -19157,7 +19157,7 @@ body.modal-open-spin {
 }
 
 .claim-prize-btn:hover {
-    background: #ff1a6b;
+    background: #000;
     transform: translateY(-2px);
     box-shadow: 0 4px 15px rgba(225, 1, 78, 0.3);
 }
