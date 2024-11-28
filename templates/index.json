@@ -1,0 +1,578 @@
+{
+    "sections": {
+        "slideshow": {
+            "type": "slideshow",
+            "blocks": {
+                "image_9J9A8j": {
+                    "type": "image",
+                    "settings": {
+                        "image": "shopify://shop_images/luxury-Sheet-sets_d1976069-7fb5-4316-813c-b266cb365f6f.jpg",
+                        "mobile_image": "shopify://shop_images/Fluffy_Pillow.jpg",
+                        "text_position": "bottom_center",
+                        "subheading": "Refresh your bed with Skin-Friendly Fabrics",
+                        "title": "Transform Your Bed into Oasis",
+                        "button_1_text": "SHOP NOW",
+                        "button_1_link": "shopify://collections/frontpage",
+                        "button_2_text": "",
+                        "button_2_link": "",
+                        "text_color": "#ffffff",
+                        "button_background": "#ffffff",
+                        "button_text_color": "#000000",
+                        "overlay_color": "#000000",
+                        "overlay_opacity": 0
+                    }
+                },
+                "image_cmjwKV": {
+                    "type": "image",
+                    "settings": {
+                        "image": "shopify://shop_images/Luxury-Pillow_59d7c1f8-427d-47f8-a0c9-aeb5ff59fe30.jpg",
+                        "mobile_image": "shopify://shop_images/luxury-bed-sheets.jpg",
+                        "text_position": "bottom_center",
+                        "subheading": "As soft as silk, and naturally healthy for your body while you sleep",
+                        "title": "Bamboo bed Sheets",
+                        "button_1_text": "SHOP NOW",
+                        "button_1_link": "shopify://products/bamboo-fiber-bed-sheet-fitted-sheet-pillowcase-four-piece-set",
+                        "button_2_text": "",
+                        "button_2_link": "",
+                        "text_color": "#051e38",
+                        "button_background": "#051e38",
+                        "button_text_color": "#ffffff",
+                        "overlay_color": "#000000",
+                        "overlay_opacity": 0
+                    }
+                },
+                "slide-1": {
+                    "type": "image",
+                    "settings": {
+                        "image": "shopify://shop_images/sheet_sets_5a6eb4fa-3200-4a2e-9135-54a19be20434.jpg",
+                        "mobile_image": "shopify://shop_images/ddd.jpg",
+                        "text_position": "bottom_center",
+                        "subheading": "",
+                        "title": "100% Bamboo fabric",
+                        "button_1_text": "SHOP NOW",
+                        "button_1_link": "shopify://products/bamboo-fiber-bed-sheet-fitted-sheet-pillowcase-four-piece-set",
+                        "button_2_text": "",
+                        "button_2_link": "",
+                        "text_color": "#ffffff",
+                        "button_background": "#051e38",
+                        "button_text_color": "#ffffff",
+                        "overlay_color": "#0d0d0d",
+                        "overlay_opacity": 0
+                    }
+                }
+            },
+            "block_order": ["image_9J9A8j", "image_cmjwKV", "slide-1"],
+            "settings": {
+                "section_height": "fit",
+                "transition_type": "sweep",
+                "show_initial_transition": true,
+                "autoplay": true,
+                "cycle_speed": 4,
+                "background": "rgba(0,0,0,0)"
+            }
+        },
+        "logo_list_yDMytc": {
+            "type": "logo-list",
+            "blocks": {
+                "logo_WPCP4g": {
+                    "type": "logo",
+                    "settings": {
+                        "logo": "shopify://shop_images/Good-Hosekeeping.png",
+                        "link": ""
+                    }
+                },
+                "logo_pCgAjV": {
+                    "type": "logo",
+                    "settings": {
+                        "logo": "shopify://shop_images/CNN.png",
+                        "link": ""
+                    }
+                },
+                "logo_kL78fF": {
+                    "type": "logo",
+                    "settings": {
+                        "logo": "shopify://shop_images/Untitled-1.png",
+                        "link": ""
+                    }
+                },
+                "logo_EeGWyg": {
+                    "type": "logo",
+                    "settings": {
+                        "logo": "shopify://shop_images/US-weekly.png",
+                        "link": ""
+                    }
+                },
+                "logo_r6yGAi": {
+                    "type": "logo",
+                    "settings": {
+                        "logo": "shopify://shop_images/THe-Guardian.png",
+                        "link": ""
+                    }
+                },
+                "logo_hdnGfd": {
+                    "type": "logo",
+                    "settings": {
+                        "logo": "shopify://shop_images/New-york.png",
+                        "link": ""
+                    }
+                }
+            },
+            "block_order": [
+                "logo_WPCP4g",
+                "logo_pCgAjV",
+                "logo_kL78fF",
+                "logo_EeGWyg",
+                "logo_r6yGAi",
+                "logo_hdnGfd"
+            ],
+            "settings": {
+                "reveal_on_scroll": true,
+                "subheading": "",
+                "title": "",
+                "button_text": "",
+                "button_link": "",
+                "stack_logos": true,
+                "background": "rgba(0,0,0,0)",
+                "text_color": "rgba(0,0,0,0)",
+                "button_background": "rgba(0,0,0,0)",
+                "button_text_color": "rgba(0,0,0,0)",
+                "logo_background": "rgba(0,0,0,0)"
+            }
+        },
+        "collection-list": {
+            "type": "collection-list",
+            "blocks": {
+                "collection-1": {
+                    "type": "collection",
+                    "settings": {
+                        "collection": "sheet-sets",
+                        "image": "shopify://shop_images/Luxury-white-Bed-Sheet-set.jpg",
+                        "subheading": "",
+                        "title": "",
+                        "link_text": "",
+                        "link_url": "",
+                        "text_color": "rgba(0,0,0,0)",
+                        "overlay_color": "#263176",
+                        "overlay_opacity": 53
+                    }
+                },
+                "collection-3": {
+                    "type": "collection",
+                    "settings": {
+                        "collection": "bedding",
+                        "image": "shopify://shop_images/Luxury-Duvets.jpg",
+                        "subheading": "",
+                        "title": "",
+                        "link_text": "",
+                        "link_url": "",
+                        "text_color": "rgba(0,0,0,0)",
+                        "overlay_color": "#000000",
+                        "overlay_opacity": 30
+                    }
+                },
+                "collection-2": {
+                    "type": "collection",
+                    "settings": {
+                        "collection": "pillows-pillowcases",
+                        "image": "shopify://shop_images/Pillows-and-pillowcases.jpg",
+                        "subheading": "",
+                        "title": "",
+                        "link_text": "",
+                        "link_url": "shopify://collections/pillows-pillowcases",
+                        "text_color": "#ffffff",
+                        "overlay_color": "#051e38",
+                        "overlay_opacity": 0
+                    }
+                }
+            },
+            "block_order": ["collection-1", "collection-3", "collection-2"],
+            "settings": {
+                "reveal_on_scroll": true,
+                "layout": "grid",
+                "subheading": "",
+                "title": "",
+                "background": "rgba(0,0,0,0)",
+                "text_color": "rgba(0,0,0,0)"
+            }
+        },
+        "1729329242d2e857a9": {
+            "type": "apps",
+            "settings": {
+                "include_horizontal_margins": false,
+                "include_vertical_margins": false
+            }
+        },
+        "featured-collections": {
+            "type": "featured-collections",
+            "blocks": {
+                "collection_tjxyML": {
+                    "type": "collection",
+                    "settings": {
+                        "collection": "sheet-sets",
+                        "label": "",
+                        "button_text": "",
+                        "button_url": ""
+                    }
+                },
+                "collection_NVNggn": {
+                    "type": "collection",
+                    "settings": {
+                        "collection": "pillows-pillowcases",
+                        "label": "",
+                        "button_text": "",
+                        "button_url": ""
+                    }
+                },
+                "collection-1": {
+                    "type": "collection",
+                    "settings": {
+                        "collection": "bedding",
+                        "label": "",
+                        "button_text": "",
+                        "button_url": ""
+                    }
+                }
+            },
+            "block_order": [
+                "collection_tjxyML",
+                "collection_NVNggn",
+                "collection-1"
+            ],
+            "disabled": true,
+            "settings": {
+                "subheading": "",
+                "title": "Collection",
+                "content": "",
+                "products_count": 8,
+                "products_per_row": 4,
+                "stack_products": true,
+                "show_cta": false,
+                "background": "rgba(0,0,0,0)",
+                "text_color": "rgba(0,0,0,0)",
+                "button_background": "rgba(0,0,0,0)",
+                "button_text_color": "rgba(0,0,0,0)"
+            }
+        },
+        "image-with-text": {
+            "type": "image-with-text",
+            "blocks": {
+                "item-1": {
+                    "type": "item",
+                    "settings": {
+                        "tab_label": "Text 1",
+                        "subheading": "Subheading",
+                        "title": "Image with text",
+                        "content": "<p>Use image with text to give your customers insight into your brand. Select imagery and text that relates to your style and story.</p>",
+                        "button_text": "",
+                        "button_link": ""
+                    }
+                },
+                "item-2": {
+                    "type": "item",
+                    "settings": {
+                        "tab_label": "Text 2",
+                        "subheading": "Subheading",
+                        "title": "Image with text",
+                        "content": "<p>Use image with text to give your customers insight into your brand. Select imagery and text that relates to your style and story.</p>",
+                        "button_text": "",
+                        "button_link": ""
+                    }
+                }
+            },
+            "block_order": ["item-1", "item-2"],
+            "disabled": true,
+            "settings": {
+                "reveal_on_scroll": true,
+                "background_type": "full_width",
+                "background_overlap": "image",
+                "image_position": "left",
+                "text_alignment": "center",
+                "cycle_speed": 8,
+                "accent_background": "rgba(0,0,0,0)",
+                "text_color": "rgba(0,0,0,0)",
+                "button_background": "rgba(0,0,0,0)",
+                "button_text_color": "rgba(0,0,0,0)"
+            }
+        },
+        "shop-the-look": {
+            "type": "shop-the-look",
+            "blocks": {
+                "look-1": {
+                    "type": "look",
+                    "settings": {
+                        "dot_type": "inverted",
+                        "product_1": "",
+                        "product_1_horizontal_position": 41,
+                        "product_1_vertical_position": 41,
+                        "product_1_horizontal_position_mobile": 30,
+                        "product_1_vertical_position_mobile": 30,
+                        "product_2": "",
+                        "product_2_horizontal_position": 46,
+                        "product_2_vertical_position": 64,
+                        "product_2_horizontal_position_mobile": 50,
+                        "product_2_vertical_position_mobile": 50,
+                        "product_3": "",
+                        "product_3_horizontal_position": 62,
+                        "product_3_vertical_position": 50,
+                        "product_3_horizontal_position_mobile": 70,
+                        "product_3_vertical_position_mobile": 70
+                    }
+                }
+            },
+            "block_order": ["look-1"],
+            "disabled": true,
+            "settings": { "reveal_on_scroll": true, "label": "Shop the looks" }
+        },
+        "blog-posts": {
+            "type": "blog-posts",
+            "disabled": true,
+            "settings": {
+                "blog": "",
+                "subheading": "Stay up-to-date",
+                "title": "Blog posts",
+                "articles_count": 3,
+                "stack_mobile": false,
+                "show_category": true,
+                "show_excerpt": false,
+                "background": "rgba(0,0,0,0)",
+                "text_color": "rgba(0,0,0,0)"
+            }
+        },
+        "image-with-text-block": {
+            "type": "image-with-text-block",
+            "disabled": true,
+            "settings": {
+                "reveal_on_scroll": true,
+                "subheading": "Subheading",
+                "title": "Image with text block",
+                "content": "<p>Use block text to give your customers insight into your brand. Select impactful text that relates to your brand and story.</p>",
+                "button_text": "",
+                "button_link": "",
+                "background_type": "full_width",
+                "text_position": "left",
+                "text_alignment": "center",
+                "text_background": "rgba(0,0,0,0)",
+                "text_color": "rgba(0,0,0,0)",
+                "button_background": "rgba(0,0,0,0)",
+                "button_text_color": "rgba(0,0,0,0)"
+            }
+        },
+        "testimonials": {
+            "type": "testimonials",
+            "blocks": {
+                "testimonial-1": {
+                    "type": "testimonial",
+                    "settings": {
+                        "content": "Write some content about what they are saying about your store.",
+                        "author": "John S."
+                    }
+                }
+            },
+            "block_order": ["testimonial-1"],
+            "disabled": true,
+            "settings": {
+                "reveal_on_scroll": true,
+                "subheading": "",
+                "title": "",
+                "background": "rgba(0,0,0,0)",
+                "text_color": "rgba(0,0,0,0)"
+            }
+        },
+        "timeline": {
+            "type": "timeline",
+            "blocks": {
+                "item-1": {
+                    "type": "item",
+                    "settings": {
+                        "label": "2000",
+                        "title": "Your heading",
+                        "content": "<p>Write content about your store</p>",
+                        "button_text": "",
+                        "button_link": ""
+                    }
+                },
+                "item-2": {
+                    "type": "item",
+                    "settings": {
+                        "label": "2010",
+                        "title": "Your heading",
+                        "content": "<p>Write content about your store</p>",
+                        "button_text": "",
+                        "button_link": ""
+                    }
+                },
+                "item-3": {
+                    "type": "item",
+                    "settings": {
+                        "label": "2020",
+                        "title": "Your heading",
+                        "content": "<p>Write content about your store</p>",
+                        "button_text": "",
+                        "button_link": ""
+                    }
+                }
+            },
+            "block_order": ["item-1", "item-2", "item-3"],
+            "disabled": true,
+            "settings": {
+                "subheading": "Subheading",
+                "title": "Timeline",
+                "text_position": "middle",
+                "background": "rgba(0,0,0,0)",
+                "text_color": "rgba(0,0,0,0)",
+                "item_background": "rgba(0,0,0,0)",
+                "item_text_color": "rgba(0,0,0,0)"
+            }
+        },
+        "rich_text_eCidm3": {
+            "type": "rich-text",
+            "settings": {
+                "subheading": "",
+                "title": "AUTUMN REFRESH SALE",
+                "content": "<p>Don’t let this chance slip away to refresh your bed for autumn.</p>",
+                "button_text": "SHOP NOW",
+                "button_link": "shopify://collections/frontpage",
+                "background_type": "full_width",
+                "text_width": "medium",
+                "text_position": "center",
+                "text_alignment": "center",
+                "background": "#172750",
+                "text_color": "#ffffff",
+                "button_background": "#ffffff",
+                "button_text_color": "#000000"
+            }
+        },
+        "image_with_text_Ak9GV6": {
+            "type": "image-with-text",
+            "blocks": {
+                "item_BNaeDH": {
+                    "type": "item",
+                    "settings": {
+                        "image": "shopify://shop_images/1_7be3a1e8-a3ff-4a9c-ac61-e23b89cef5c4.jpg",
+                        "tab_label": "Item",
+                        "subheading": "#1 Best-Seller",
+                        "title": "100% Mulberry Silk Pillowcase",
+                        "content": "<p>Enhance sleep, skin, and hair with luxurious silk comfort.</p>",
+                        "button_text": "Shop Now",
+                        "button_link": "shopify://products/double-sided-silk-zipper-pillowcase-19-mommes"
+                    }
+                }
+            },
+            "block_order": ["item_BNaeDH"],
+            "settings": {
+                "reveal_on_scroll": true,
+                "background_type": "full_width",
+                "background_overlap": "both",
+                "image_position": "right",
+                "text_alignment": "left",
+                "cycle_speed": 8,
+                "accent_background": "#ffffff",
+                "text_color": "rgba(0,0,0,0)",
+                "button_background": "rgba(0,0,0,0)",
+                "button_text_color": "rgba(0,0,0,0)"
+            }
+        },
+        "image_with_text_jYwExP": {
+            "type": "image-with-text",
+            "blocks": {
+                "item_ndR6bz": {
+                    "type": "item",
+                    "settings": {
+                        "image": "shopify://shop_images/602923763108421.jpg",
+                        "tab_label": "Item",
+                        "subheading": "#2 Best-Seller",
+                        "title": "Fluffy Luxury Duvet",
+                        "content": "<p><strong>Join countless buyers enjoying better sleep and comfort.</strong></p>",
+                        "button_text": "Shop Now",
+                        "button_link": "shopify://products/pure-cotton-thick-warm-breathable-winter-quilt"
+                    }
+                }
+            },
+            "block_order": ["item_ndR6bz"],
+            "settings": {
+                "reveal_on_scroll": true,
+                "background_type": "full_width",
+                "background_overlap": "both",
+                "image_position": "left",
+                "text_alignment": "left",
+                "cycle_speed": 8,
+                "accent_background": "#f1f1f1",
+                "text_color": "rgba(0,0,0,0)",
+                "button_background": "rgba(0,0,0,0)",
+                "button_text_color": "rgba(0,0,0,0)"
+            }
+        },
+        "featured-product": {
+            "type": "featured-product",
+            "blocks": {
+                "variant-picker": {
+                    "type": "variant_picker",
+                    "settings": {
+                        "hide_sold_out_variants": false,
+                        "selector_mode": "dropdown",
+                        "color_mode": "swatch",
+                        "variant_image_options": "",
+                        "size_chart_page": ""
+                    }
+                },
+                "quantity-selector": {
+                    "type": "quantity_selector",
+                    "settings": {}
+                },
+                "buy-buttons": {
+                    "type": "buy_buttons",
+                    "settings": {
+                        "show_payment_button": true,
+                        "show_gift_card_recipient": false,
+                        "atc_button_background": "rgba(0,0,0,0)",
+                        "atc_button_text_color": "rgba(0,0,0,0)",
+                        "buy_now_button_background": "rgba(0,0,0,0)",
+                        "buy_now_button_text_color": "rgba(0,0,0,0)"
+                    }
+                }
+            },
+            "block_order": [
+                "variant-picker",
+                "quantity-selector",
+                "buy-buttons"
+            ],
+            "disabled": true,
+            "settings": {
+                "product": "pure-cotton-thick-warm-breathable-winter-quilt",
+                "subheading": "",
+                "title": "#1 Chosen Product",
+                "show_vendor": false,
+                "show_sku": false,
+                "show_taxes_included": false,
+                "show_product_rating": false,
+                "show_share_buttons": false,
+                "help_page": "",
+                "enable_video_autoplay": true,
+                "enable_video_looping": true,
+                "enable_image_zoom": false,
+                "show_thumbnails_on_mobile": false,
+                "desktop_thumbnails_position": "left",
+                "transition_effect": "slide",
+                "background": "rgba(0,0,0,0)",
+                "text_color": "rgba(0,0,0,0)"
+            }
+        }
+    },
+    "order": [
+        "slideshow",
+        "logo_list_yDMytc",
+        "collection-list",
+        "1729329242d2e857a9",
+        "featured-collections",
+        "image-with-text",
+        "shop-the-look",
+        "blog-posts",
+        "image-with-text-block",
+        "testimonials",
+        "timeline",
+        "rich_text_eCidm3",
+        "image_with_text_Ak9GV6",
+        "image_with_text_jYwExP",
+        "featured-product"
+    ]
+}

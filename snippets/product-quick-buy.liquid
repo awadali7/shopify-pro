@@ -1,0 +1,136 @@
+{%- capture quick_buy_product_info -%}
+  <div class="quick-buy-product">
+    {%- assign featured_media = product.selected_or_first_available_variant.featured_media | default: product.featured_media -%}
+
+    {{- featured_media | image_url: width: featured_media.width | image_tag: loading: 'lazy', sizes: '114px', widths: '114,228,342', class: 'quick-buy-product__image' -}}
+
+    <div class="quick-buy-product__info {% if template.suffix == 'quick-buy-popover' %}text--small{% endif %}">
+      <product-meta class="product-item-meta">
+        {%- if section.settings.show_vendor -%}
+          {%- assign vendor_handle = product.vendor | handle -%}
+          {%- assign collection_for_vendor = collections[vendor_handle] -%}
+
+          {%- unless collection_for_vendor.empty? -%}
+            <a href="{{ collection_for_vendor.url }}" class="product-item-meta__vendor heading {% if template.suffix == 'quick-buy-drawer' %}heading--small{% else %}heading--xsmall{% endif %}">{{ product.vendor }}</a>
+          {%- else -%}
+            <a href="{{ product.vendor | url_for_vendor }}" class="product-item-meta__vendor heading {% if template.suffix == 'quick-buy-drawer' %}heading--small{% else %}heading--xsmall{% endif %}">{{ product.vendor }}</a>
+          {%- endunless -%}
+        {%- endif -%}
+
+        <a href="{{ product.url }}" class="product-item-meta__title">{{ product.title }}</a>
+
+        <div class="product-item-meta__price-list-container" role="region" aria-live="polite">
+          {%- if product.selected_or_first_available_variant != nil -%}
+            <div class="price-list">
+              {%- if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price -%}
+                <span class="price price--highlight">
+                  <span class="visually-hidden">{{ 'product.general.sale_price' | t }}</span>
+
+                  {%- if settings.currency_code_enabled -%}
+                    {{- product.selected_or_first_available_variant.price | money_with_currency -}}
+                  {%- else -%}
+                    {{- product.selected_or_first_available_variant.price | money -}}
+                  {%- endif -%}
+                </span>
+
+                <span class="price price--compare">
+                  <span class="visually-hidden">{{ 'product.general.regular_price' | t }}</span>
+
+                  {%- if settings.currency_code_enabled -%}
+                    {{- product.selected_or_first_available_variant.compare_at_price | money_with_currency -}}
+                  {%- else -%}
+                    {{- product.selected_or_first_available_variant.compare_at_price | money -}}
+                  {%- endif -%}
+                </span>
+              {%- else -%}
+                <span class="price">
+                  <span class="visually-hidden">{{ 'product.general.sale_price' | t }}</span>
+
+                  {%- if settings.currency_code_enabled -%}
+                    {{- product.selected_or_first_available_variant.price | money_with_currency -}}
+                  {%- else -%}
+                    {{- product.selected_or_first_available_variant.price | money -}}
+                  {%- endif -%}
+                </span>
+              {%- endif -%}
+
+              {%- if product.selected_or_first_available_variant.unit_price_measurement -%}
+                <div class="price text--subdued text--xsmall">
+                  <div class="unit-price-measurement">
+                    <span class="unit-price-measurement__price">{{ product.selected_or_first_available_variant.unit_price | money }}</span>
+                    <span class="unit-price-measurement__separator">/</span>
+
+                    {%- if product.selected_or_first_available_variant.unit_price_measurement.reference_value != 1 -%}
+                      <span class="unit-price-measurement__reference-value">{{ product.selected_or_first_available_variant.unit_price_measurement.reference_value }}</span>
+                    {%- endif -%}
+
+                    <span class="unit-price-measurement__reference-unit">{{ product.selected_or_first_available_variant.unit_price_measurement.reference_unit }}</span>
+                  </div>
+                </div>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+
+          <a href="{{ product.url }}" class="link text--subdued">{{ 'product.general.view_details' | t }}</a>
+        </div>
+
+        {%- if section.settings.show_taxes_included -%}
+          {%- if cart.taxes_included or shop.shipping_policy.body != blank -%}
+            <p class="product-meta__taxes-included text--small">
+              {%- if cart.taxes_included -%}
+                {{ 'product.general.include_taxes' | t }}
+              {%- endif -%}
+
+              {%- if shop.shipping_policy.body != blank -%}
+                {{ 'product.general.shipping_policy_html' | t: link: shop.shipping_policy.url }}
+              {%- endif -%}
+            </p>
+          {%- endif -%}
+        {%- endif -%}
+      </product-meta>
+    </div>
+  </div>
+{%- endcapture -%}
+
+{%- capture product_form_id -%}product-form-quick-buy-{{ template.suffix }}-{{ product.id }}-{{ section.id }}{%- endcapture -%}
+
+<template id="quick-buy-content">
+  <quick-buy-drawer class="drawer drawer--large drawer--quick-buy">
+    <cart-notification hidden class="cart-notification cart-notification--drawer"></cart-notification>
+
+    <span class="drawer__overlay"></span>
+
+    <product-rerender id="quick-buy-drawer-{{ product_form_id }}" observe-form="{{ product_form_id }}">
+      <header class="drawer__header">
+        <p class="drawer__title heading h6">{{ 'product.form.choose_options' | t }}</p>
+
+        <button type="button" class="drawer__close-button tap-area" data-action="close" title="{{ 'general.accessibility.close' | t | escape }}">
+          {%- render 'icon' with 'close' -%}
+        </button>
+      </header>
+
+      <div class="drawer__content">
+        {{- quick_buy_product_info -}}
+        {%- render 'product-form', product: product, product_form_id: product_form_id, context: 'quick-buy' -%}
+      </div>
+    </product-rerender>
+  </quick-buy-drawer>
+
+  <quick-buy-popover class="popover popover--quick-buy">
+    <span class="popover__overlay"></span>
+
+    <product-rerender id="quick-buy-popover-{{ product_form_id }}" observe-form="{{ product_form_id }}">
+      <header class="popover__header">
+        {{- quick_buy_product_info -}}
+
+        <button type="button" class="popover__close-button tap-area tap-area--large" data-action="close" title="{{ 'general.accessibility.close' | t | escape }}">
+          {%- render 'icon' with 'close' -%}
+        </button>
+      </header>
+
+      <div class="popover__content popover__content--no-padding">
+        {%- render 'product-form', product: product, product_form_id: product_form_id, context: 'quick-buy' -%}
+      </div>
+    </product-rerender>
+  </quick-buy-popover>
+</template>

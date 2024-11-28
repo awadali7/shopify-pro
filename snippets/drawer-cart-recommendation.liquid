@@ -1,0 +1,30 @@
+ {%  assign cartcollection = collections[settings.drawer-cart-recomendation] %}
+      <!-- Recommended Product Section in Cart Drawer -->
+<div class="recommended-product">
+  <h4 class="recommended-heading">People also bought</h4>
+{% for product in cartcollection.products %}
+  <div class="recommended-item">
+ <!-- Product Image -->
+    <img src="{{ product.featured_image | img_url: '300x300' }}" class="product-image">
+
+  <!-- Product Details -->
+      <div class="product-details">
+        <p class="product-title">{{ product.title }}</p>
+        <p class="product-pricing">
+          {% if product.compare_at_price > product.price %}
+            <span class="original-price">{{ product.compare_at_price | money }}</span>
+          {% endif %}
+          <span class="discounted-price">{{ product.price | money }}</span>
+        </p>
+        <a href="{{ product.url }}" class="product-link">Show Details</a>
+      </div>
+
+    <!-- Add to Cart Button -->
+<form method="post" action="javascript:void(0);" id="add-to-cart-form" is="product-form">
+  <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+  <button type="submit" class="add-to-cart-btn">Add To Cart</button>
+</form>
+  </div>
+{% endfor %}
+    
+</div>
