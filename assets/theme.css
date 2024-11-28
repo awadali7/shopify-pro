@@ -18941,6 +18941,8 @@ span.checkout-button-lock {
     background-color: rgba(0, 0, 0, 0.5);
     justify-content: center;
     align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
 }
 .spin-modal-heading {
     position: absolute;
@@ -18963,7 +18965,7 @@ span.checkout-button-lock {
 
 .promo-modal-content {
     background-color: #b3a7eb;
-    background-image: url(https://cdn.shopify.com/s/files/1/0740/5882/6015/files/back2_e011303a-f987-494b-b5f2-7da0d3b66235.png?v=1722498758);
+    background-image: url("https://cdn.shopify.com/s/files/1/0740/5882/6015/files/back2_e011303a-f987-494b-b5f2-7da0d3b66235.png?v=1722498758");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -18975,11 +18977,10 @@ span.checkout-button-lock {
     width: 80%;
     max-width: 800px;
     height: 450px;
-    box-shadow: 0 4px 10px #0000004d;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     position: relative;
     align-items: center;
-    transition: all 0.5s ease;
-    transform-origin: center;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .wheel-container {
@@ -18988,8 +18989,16 @@ span.checkout-button-lock {
     height: 300px;
     margin: 0 auto;
     cursor: pointer;
+    perspective: 1000px;
+    transition: all 0.5s ease;
+}
+.wheel-container canvas {
+    transition: transform 0.3s ease-out;
 }
 
+.wheel-container:hover canvas {
+    transform: scale(1.05) rotateY(10deg);
+}
 .spinner-center-image {
     position: absolute;
     top: 50%;
