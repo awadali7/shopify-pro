@@ -113,72 +113,53 @@ class LuckyWheel {
     }
 
     async preloadImages() {
-        const loadImage = (url) => {
-            return new Promise((resolve, reject) => {
-                if (!url) {
-                    console.warn("No image URL provided");
-                    resolve(null);
-                    return;
-                }
-                const img = new Image();
-                img.crossOrigin = "Anonymous"; // Helps with CORS issues
-                img.onload = () => {
-                    // Create a canvas to ensure image is properly loaded and scaled
-                    const canvas = document.createElement("canvas");
-                    const ctx = canvas.getContext("2d");
+        const loadPromises = this.prizes
+            .filter((prize) => prize.image)
+            .map((prize) => {
+                return new Promise((resolve) => {
+                    const img = new Image();
+                    img.crossOrigin = "Anonymous";
+                    img.onload = () => {
+                        const canvas = document.createElement("canvas");
+                        const ctx = canvas.getContext("2d");
+                        const size = 200;
+                        canvas.width = size;
+                        canvas.height = size;
 
-                    // Set canvas size to a standard square
-                    const size = 200;
-                    canvas.width = size;
-                    canvas.height = size;
+                        const scale = Math.max(
+                            size / img.width,
+                            size / img.height
+                        );
+                        const scaledWidth = img.width * scale;
+                        const scaledHeight = img.height * scale;
 
-                    // Calculate scaling to fit the image while maintaining aspect ratio
-                    const scale = Math.max(size / img.width, size / img.height);
-                    const scaledWidth = img.width * scale;
-                    const scaledHeight = img.height * scale;
+                        const offsetX = (size - scaledWidth) / 2;
+                        const offsetY = (size - scaledHeight) / 2;
 
-                    // Center the image on the canvas
-                    const offsetX = (size - scaledWidth) / 2;
-                    const offsetY = (size - scaledHeight) / 2;
+                        ctx.clearRect(0, 0, size, size);
+                        ctx.drawImage(
+                            img,
+                            offsetX,
+                            offsetY,
+                            scaledWidth,
+                            scaledHeight
+                        );
 
-                    // Clear and draw the scaled image
-                    ctx.clearRect(0, 0, size, size);
-                    ctx.drawImage(
-                        img,
-                        offsetX,
-                        offsetY,
-                        scaledWidth,
-                        scaledHeight
-                    );
-
-                    // Convert to image and resolve
-                    const processedImg = new Image();
-                    processedImg.src = canvas.toDataURL();
-                    resolve(processedImg);
-                };
-                img.onerror = (error) => {
-                    console.error(`Failed to load image: ${url}`, error);
-                    resolve(null);
-                };
-                img.src = url;
+                        const processedImg = new Image();
+                        processedImg.src = canvas.toDataURL();
+                        resolve({ id: prize.id, img: processedImg });
+                    };
+                    img.onerror = () => resolve(null);
+                    img.src = prize.image;
+                });
             });
-        };
 
-        for (const prize of this.prizes) {
-            if (prize.image) {
-                try {
-                    const img = await loadImage(prize.image);
-                    if (img) {
-                        this.loadedImages.set(prize.id, img);
-                    }
-                } catch (error) {
-                    console.error(
-                        `Error processing image for prize ${prize.id}:`,
-                        error
-                    );
-                }
+        const loadedImages = await Promise.allSettled(loadPromises);
+        loadedImages.forEach((result) => {
+            if (result.status === "fulfilled" && result.value) {
+                this.loadedImages.set(result.value.id, result.value.img);
             }
-        }
+        });
     }
 
     async initialize() {
@@ -384,43 +365,48 @@ class LuckyWheel {
         const startRotation = state.currentRotation;
         const startTime = performance.now();
 
-        // More advanced easing function for smoother animation
-        const easeInOutCubic = (t) => {
-            return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-        };
+        // Simplified easing function
+        const easeInOutCubic = (t) =>
+            t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 
-        const animate = (currentTime) => {
-            const elapsed = currentTime - startTime;
-            const progress = Math.min(
-                elapsed / (CONSTANTS.SPIN_DURATION * 1.5),
-                1
-            );
-
-            // Use the more sophisticated easing function
-            state.currentRotation =
-                startRotation + targetRotation * easeInOutCubic(progress);
-
-            this.ctx.save();
-            this.ctx.translate(this.canvas.width / 2, this.canvas.height / 2);
-            this.ctx.rotate((state.currentRotation * Math.PI) / 180);
-            this.ctx.translate(-this.canvas.width / 2, -this.canvas.height / 2);
-            this.drawWheel();
-            this.ctx.restore();
-
-            if (progress < 1) {
-                requestAnimationFrame(animate);
-            }
-        };
-
+        // Use requestAnimationFrame more efficiently
         return new Promise((resolve) => {
-            requestAnimationFrame(function tick(currentTime) {
-                animate(currentTime);
-                if (state.currentRotation >= targetRotation) resolve();
-                else requestAnimationFrame(tick);
-            });
+            const frameCallback = (currentTime) => {
+                const elapsed = currentTime - startTime;
+                const duration = CONSTANTS.SPIN_DURATION * 1.5;
+                const progress = Math.min(elapsed / duration, 1);
+
+                state.currentRotation =
+                    startRotation + targetRotation * easeInOutCubic(progress);
+
+                // Optimize canvas drawing
+                this.ctx.setTransform(1, 0, 0, 1, 0, 0);
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+                this.ctx.save();
+                this.ctx.translate(
+                    this.canvas.width / 2,
+                    this.canvas.height / 2
+                );
+                this.ctx.rotate((state.currentRotation * Math.PI) / 180);
+                this.ctx.translate(
+                    -this.canvas.width / 2,
+                    -this.canvas.height / 2
+                );
+
+                this.drawWheel();
+                this.ctx.restore();
+
+                if (progress < 1) {
+                    requestAnimationFrame(frameCallback);
+                } else {
+                    resolve();
+                }
+            };
+
+            requestAnimationFrame(frameCallback);
         });
     }
-
     showPrizeNotification(prize) {
         console.log(prize, "prize =====>");
 
