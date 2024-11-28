@@ -35,7 +35,7 @@ const utils = {
 };
 
 const shopifyConfig = {
-    shopName: "https://pro-backend-chi.vercel.app",
+    shopName: "pro-shopify-backend-live.vercel.app",
     apiVersion: "2024-10",
 };
 
