@@ -541,6 +541,19 @@ class EventHandlers {
         const promoModal = document.getElementById("promoModal");
         const emailForm = document.getElementById("emailForm");
 
+        emailForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const email = document.getElementById("emailInput").value;
+
+            // Save email to Shopify
+            await createOrUpdateCustomer(email);
+
+            // Trigger wheel spin
+            if (email && state.wheelSpinner) {
+                state.wheelSpinner();
+            }
+        });
+
         giftBox.addEventListener("click", () => {
             promoModal.style.display = "flex";
             document.body.classList.add("modal-open-spin"); // Prevent background scroll
@@ -567,6 +580,37 @@ class EventHandlers {
                 document.body.classList.remove("modal-open-spin");
             }
         });
+    }
+}
+
+async function createOrUpdateCustomer(email) {
+    try {
+        const response = await fetch(
+            `${shopifyConfig.shopName}/api/customers`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    // Add authentication token
+                },
+                body: JSON.stringify({
+                    customer: {
+                        email: email,
+                        first_name: "Lucky Wheel",
+                        tags: ["lucky_wheel_signup"],
+                    },
+                }),
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error("Failed to create/update customer");
+        }
+
+        const result = await response.json();
+        console.log("Customer processed", result);
+    } catch (error) {
+        console.error("Error processing customer:", error);
     }
 }
 
