@@ -18964,6 +18964,7 @@ span.checkout-button-lock {
 }
 
 .promo-modal-content {
+    position: relative;
     background-color: #b3a7eb;
     background-image: url("https://cdn.shopify.com/s/files/1/0740/5882/6015/files/back2_e011303a-f987-494b-b5f2-7da0d3b66235.png?v=1722498758");
     background-size: cover;
@@ -19067,6 +19068,17 @@ span.checkout-button-lock {
 }
 
 .close-modal {
+    position: absolute;
+    top: 3%;
+    right: 2%;
+    cursor: pointer;
+    border: 1px solid #fff;
+    width: 35px;
+    height: 35px;
+    padding: 11px;
+    border-radius: 50%;
+}
+.close-modal-result {
     position: absolute;
     top: 3%;
     right: 2%;
