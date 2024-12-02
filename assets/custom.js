@@ -399,7 +399,7 @@ class EnhancedLuckyWheel {
                 <img src="https://arwa-public-assets-bucket.s3.ap-south-1.amazonaws.com/zelta+media/close.png"
                      alt="Close"
                      width="60px"
-                     height="60px">
+                     height="60px" />
             </span>
             <h2 class="prize-title">Congratulations! 🎉</h2>
             <div class="prize-details">
