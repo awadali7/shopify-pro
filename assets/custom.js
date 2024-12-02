@@ -395,12 +395,12 @@ class EnhancedLuckyWheel {
 
         modalContent.innerHTML = `
         <div class="prize-result-container">
-        <span class="close-modal-result">
-                <img src="https://arwa-public-assets-bucket.s3.ap-south-1.amazonaws.com/zelta+media/close.png"
-                     alt="Close"
-                     width="60px"
-                     height="60px" />
-            </span>
+        // <span class="close-modal-result">
+        //         <img src="https://arwa-public-assets-bucket.s3.ap-south-1.amazonaws.com/zelta+media/close.png"
+        //              alt="Close"
+        //              width="60px"
+        //              height="60px" />
+        //     </span>
             <h2 class="prize-title">Congratulations! 🎉</h2>
             <div class="prize-details">
                 <h3>You've Won:</h3>
